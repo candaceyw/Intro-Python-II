@@ -40,36 +40,53 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-player = Player("Candace", room['outside'])
+player1 = Player("Candace", room['outside'])
 
 # Write a loop that:
 #
+
 while True:
     # * Prints the current room name
-    print(f'{player.name} you are currently in {player.location}')
+    print(f'{player1.name} you are currently in {player1.location}')
 
 
 # * Prints the current description (the textwrap module might be useful here).
-    for line in textwrap.wrap(player.location.print_description()):
+    for line in textwrap.wrap(player1.location.print_description()):
         print('\n', line)
 
-# * Waits for user input and decides what to do.
-#
+
     command = input("What do you want to do?")
-    try:
-        if command == 'q':
-            break
-
-        if command == 'n':
-            print(player.location)
+    if command == "n":
+        if player1.location.n_to == None:
+            print("Wrong way! Turn back and try again")
         else:
-            print('You\'ve entered an invalid location')
-    except ValueError:
-        print("please enter a valid response")
+            player1.location = player1.location.n_to
+            print("Nice, you went North!")
+
+    elif command == "s":
+        if player1.location.s_to == None:
+            print("Wrong way! Turn back and try again")
+        else:
+            player1.location = player1.location.s_to
+            print("Nice, you went South!")
+
+    elif command == "e":
+        if player1.location.e_to == None:
+            print("Wrong way! Turn back and try again")
+        else:
+            player1.location = player1.location.e_to
+            print("Nice, you went East!")
+
+    elif command == "w":
+        if player1.location.w_to == None:
+            print("Wrong way! Turn back and try again")
+        else:
+            player1.location= player1.location.w_to
+            print("Nice, you went West!")
+
+    elif command == "q":
+        print("You have exited the game")
+        quit()
 
 
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
 
